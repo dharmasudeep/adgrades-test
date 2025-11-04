@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -21,18 +21,47 @@ import {
 } from "lucide-react";
 import { cultureValues, openPositions, benefits } from "../data/careersData";
 
+const FORM_SUBMIT_ENDPOINT =
+  import.meta.env.VITE_CAREERS_FORM_ENDPOINT ||
+  "https://formsubmit.co/ajax/adgradesweb@gmail.com";
+
+const initialApplicationData = {
+  name: "",
+  email: "",
+  phone: "",
+  position: "",
+  experience: "",
+  portfolio: "",
+  message: "",
+};
+
+type FormStatus = "idle" | "submitting" | "success" | "error";
+
 const Careers: React.FC = () => {
-  const [applicationData, setApplicationData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    position: "",
-    experience: "",
-    portfolio: "",
-    message: "",
-  });
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [applicationData, setApplicationData] = useState(
+    initialApplicationData
+  );
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const selectedPositionTitle = useMemo(() => {
+    if (!applicationData.position) {
+      return "";
+    }
+
+    if (applicationData.position === "other") {
+      return "Other / General Application";
+    }
+
+    const matchingPosition = openPositions.find(
+      (position) =>
+        position.title.toLowerCase().replace(/ /g, "-") ===
+        applicationData.position
+    );
+
+    return matchingPosition?.title ?? applicationData.position;
+  }, [applicationData.position]);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -45,23 +74,54 @@ const Careers: React.FC = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Application submitted:", applicationData);
-    setIsSubmitted(true);
+    setStatus("submitting");
+    setErrorMessage(null);
 
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setApplicationData({
-        name: "",
-        email: "",
-        phone: "",
-        position: "",
-        experience: "",
-        portfolio: "",
-        message: "",
+    const payload = {
+      name: applicationData.name,
+      email: applicationData.email,
+      phone: applicationData.phone,
+      portfolio: applicationData.portfolio,
+      position: selectedPositionTitle || "Not specified",
+      experience: applicationData.experience,
+      message: applicationData.message,
+      _subject: `New Career Application from ${applicationData.name}`,
+      _template: "table",
+      _captcha: "false",
+      source: "AdGrades careers page",
+    };
+
+    try {
+      const response = await fetch(FORM_SUBMIT_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
       });
-    }, 3000);
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        const message =
+          errorData?.message ||
+          "We couldn't submit your application right now. Please try again.";
+        throw new Error(message);
+      }
+
+      setStatus("success");
+      setApplicationData(initialApplicationData);
+    } catch (error) {
+      console.error("Failed to submit application", error);
+      setStatus("error");
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "We couldn't submit your application right now. Please try again."
+      );
+    }
   };
 
   const careerFaqs = [
@@ -504,7 +564,7 @@ const Careers: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            {isSubmitted ? (
+            {status === "success" ? (
               <div className="bg-card/30 backdrop-blur-sm rounded-lg border border-border/50 p-8 sm:p-10">
                 <motion.div
                   className="text-center py-6 sm:py-8"
@@ -524,9 +584,10 @@ const Careers: React.FC = () => {
                     className="mt-6 px-6 py-2.5 bg-primary/10 text-primary rounded-lg text-sm font-medium hover:bg-primary/20 transition-colors duration-300"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() =>
-                      window.scrollTo({ top: 0, behavior: "smooth" })
-                    }
+                    onClick={() => {
+                      setStatus("idle");
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
                   >
                     Back to Top
                   </motion.button>
@@ -547,6 +608,13 @@ const Careers: React.FC = () => {
                   onSubmit={handleSubmit}
                   className="p-5 sm:p-6 space-y-5 bg-card/30 backdrop-blur-sm rounded-b-lg border border-border/50 border-t-0"
                 >
+                  {status === "error" && errorMessage && (
+                    <div className="rounded-md border border-destructive/40 bg-destructive/10 p-3 text-left">
+                      <p className="text-xs sm:text-sm font-medium text-destructive">
+                        {errorMessage}
+                      </p>
+                    </div>
+                  )}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
                     <div>
                       <label
@@ -700,11 +768,14 @@ const Careers: React.FC = () => {
                   <div className="pt-2">
                     <motion.button
                       type="submit"
-                      className="w-full inline-flex items-center justify-center px-4 py-2.5 sm:px-6 sm:py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-all duration-300 transform hover:scale-105 shadow-lg text-sm"
+                      className="w-full inline-flex items-center justify-center px-4 py-2.5 sm:px-6 sm:py-3 bg-primary text-white font-semibold rounded-lg transition-all duration-300 transform shadow-lg text-sm disabled:cursor-not-allowed disabled:opacity-70"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
+                      disabled={status === "submitting"}
                     >
-                      Submit Application
+                      {status === "submitting"
+                        ? "Sending Application..."
+                        : "Submit Application"}
                       <Send className="ml-1.5 h-3 w-3 sm:h-4 sm:w-4" />
                     </motion.button>
                   </div>
