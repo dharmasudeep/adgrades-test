@@ -222,7 +222,7 @@ export const testimonialData = {
     {
       name: "Suresh",
       company: "Dewdrop Homestays",
-      role: "Owner",
+      role: "Manager",
       content:
         "We went from being hidden to fully booked. Ad Grades brought in real customers through smart ads. They told our story in a way people connected with. Thanks to them, every weekend is now packed.",
       rating: 5,
