@@ -23,7 +23,7 @@ import { cultureValues, openPositions, benefits } from "../data/careersData";
 
 const FORM_SUBMIT_ENDPOINT =
   import.meta.env.VITE_CAREERS_FORM_ENDPOINT ||
-  "https://formsubmit.co/ajax/your@email.com";
+  "https://formsubmit.co/ajax/adgradesweb@gmail.com";
 
 const initialApplicationData = {
   name: "",
