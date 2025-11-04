@@ -17,16 +17,25 @@ import {
   Globe,
 } from "lucide-react";
 
+const FORM_SUBMIT_ENDPOINT =
+  import.meta.env.VITE_CONTACT_FORM_ENDPOINT ||
+  "https://formsubmit.co/ajax/adgradesweb@gmail.com";
+
+const initialFormData = {
+  name: "",
+  email: "",
+  company: "",
+  service: "",
+  budget: "",
+  message: "",
+};
+
+type FormStatus = "idle" | "submitting" | "success" | "error";
+
 const Contact: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    company: "",
-    service: "",
-    budget: "",
-    message: "",
-  });
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formData, setFormData] = useState(initialFormData);
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const handleInputChange = (
@@ -40,22 +49,59 @@ const Contact: React.FC = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    setIsSubmitted(true);
+    setStatus("submitting");
+    setErrorMessage(null);
 
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        name: "",
-        email: "",
-        company: "",
-        service: "",
-        budget: "",
-        message: "",
+    const payload = {
+      name: formData.name,
+      email: formData.email,
+      company: formData.company || "Not provided",
+      service: formData.service || "Not specified",
+      budget: formData.budget || "Not specified",
+      message: formData.message,
+      _subject: `New Contact Inquiry from ${formData.name}`,
+      _template: "table",
+      _captcha: "false",
+      source: "AdGrades contact page",
+    };
+
+    try {
+      const response = await fetch(FORM_SUBMIT_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
       });
-    }, 3000);
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        const message =
+          errorData?.message ||
+          "We couldn't submit your message right now. Please try again.";
+        throw new Error(message);
+      }
+
+      setStatus("success");
+      setFormData(initialFormData);
+    } catch (error) {
+      console.error("Failed to submit contact form", error);
+      setStatus("error");
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "We couldn't submit your message right now. Please try again."
+      );
+    }
+  };
+
+  const handleReset = () => {
+    setStatus("idle");
+    setErrorMessage(null);
+    setFormData(initialFormData);
   };
 
   const contactMethods = [
@@ -254,7 +300,7 @@ const Contact: React.FC = () => {
                 Send us a Message
               </h2>
 
-              {isSubmitted ? (
+              {status === "success" ? (
                 <div className="text-center py-6 sm:py-8">
                   <CheckCircle className="h-8 w-8 sm:h-12 sm:w-12 text-green-500 mx-auto mb-3" />
                   <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">
@@ -263,12 +309,24 @@ const Contact: React.FC = () => {
                   <p className="text-muted-foreground text-sm">
                     We'll get back to you within 24 hours.
                   </p>
+                  <button
+                    type="button"
+                    onClick={handleReset}
+                    className="mt-4 inline-flex items-center px-4 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-all duration-300 text-sm"
+                  >
+                    Send Another Message
+                  </button>
                 </div>
               ) : (
                 <form
                   onSubmit={handleSubmit}
                   className="space-y-3 sm:space-y-4"
                 >
+                  {status === "error" && errorMessage && (
+                    <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-xs sm:text-sm text-red-700">
+                      {errorMessage}
+                    </div>
+                  )}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                     <div>
                       <label
@@ -402,9 +460,10 @@ const Contact: React.FC = () => {
 
                   <button
                     type="submit"
-                    className="w-full inline-flex items-center justify-center px-4 py-2.5 sm:px-6 sm:py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-all duration-300 transform hover:scale-105 shadow-lg text-sm"
+                    disabled={status === "submitting"}
+                    className="w-full inline-flex items-center justify-center px-4 py-2.5 sm:px-6 sm:py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-all duration-300 transform hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed shadow-lg text-sm"
                   >
-                    Send Message
+                    {status === "submitting" ? "Sending..." : "Send Message"}
                     <Send className="ml-1.5 h-3 w-3 sm:h-4 sm:w-4" />
                   </button>
                 </form>
