@@ -57,6 +57,79 @@ const NotFound: React.FC = () => {
           className="mb-6"
         >
           <motion.div
+            className="relative inline-flex items-center justify-center"
+            initial={{ rotateX: 20, rotateY: -20, scale: 0.75 }}
+            animate={{ rotateX: [20, -10, 15, -5, 20], rotateY: [-20, 15, -18, 12, -20], scale: [0.75, 1.05, 0.98, 1.02, 1] }}
+            transition={{ duration: 6, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+          >
+            <motion.span
+              className="absolute inset-0 -m-6 rounded-full bg-gradient-to-br from-primary/30 via-secondary/20 to-accent/30 blur-3xl"
+              animate={{ opacity: [0.3, 0.55, 0.35], scale: [1, 1.1, 1] }}
+              transition={{ duration: 4, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+            />
+            <motion.span
+              className="relative flex h-28 w-28 items-center justify-center rounded-full bg-background/80 backdrop-blur-xl shadow-[0_25px_70px_-30px_rgba(0,181,255,0.75)] ring-1 ring-primary/40"
+              animate={{ boxShadow: [
+                "0 25px 70px -30px rgba(0,181,255,0.75)",
+                "0 25px 90px -25px rgba(1,249,198,0.9)",
+                "0 25px 70px -30px rgba(0,181,255,0.75)",
+              ] }}
+              transition={{ duration: 5, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+            >
+              <motion.span
+                className="absolute inset-4 rounded-full bg-[conic-gradient(from_180deg_at_50%_50%,rgba(0,181,255,0.3),rgba(1,249,198,0.08),rgba(0,181,255,0.3))] opacity-80"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+              />
+              <motion.span
+                className="absolute inset-2 rounded-full border border-white/10"
+                animate={{ scale: [1, 1.08, 0.96, 1] }}
+                transition={{ duration: 3.8, repeat: Infinity, repeatType: "loop", ease: "easeInOut" }}
+              />
+              <motion.span
+                className="absolute -left-6 h-16 w-16 rounded-full bg-primary/25 blur-xl"
+                animate={{
+                  x: [0, 18, 40, 18, 0, -18, -40, -18, 0],
+                  y: [0, -20, 0, 20, 0, -18, 0, 18, 0],
+                  opacity: [0.6, 0.4, 0.55, 0.3, 0.5, 0.35, 0.6, 0.4, 0.6],
+                }}
+                transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
+              />
+              <motion.span
+                className="absolute -right-5 bottom-4 h-14 w-14 rounded-full bg-secondary/25 blur-xl"
+                animate={{
+                  x: [0, -25, -40, -25, 0, 18, 32, 18, 0],
+                  y: [0, 16, 0, -18, 0, 16, 0, -18, 0],
+                  opacity: [0.4, 0.6, 0.35, 0.5, 0.38, 0.6, 0.4, 0.55, 0.4],
+                }}
+                transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
+              />
+              <motion.div
+                className="relative z-10 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-primary/20 via-background/60 to-secondary/20 backdrop-blur-lg"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: [0.8, 1.05, 1], opacity: 1 }}
+                transition={{ duration: 0.9, delay: 0.1, ease: "easeOut" }}
+              >
+                <AlertCircle className="h-10 w-10 text-primary sm:h-14 sm:w-14" />
+              </motion.div>
+              <motion.span
+                className="absolute inset-1 rounded-full"
+                style={{ boxShadow: "0 0 25px rgba(1,249,198,0.3), inset 0 0 35px rgba(0,181,255,0.25)" }}
+                animate={{ opacity: [0.5, 0.9, 0.5] }}
+                transition={{ duration: 4.5, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+              />
+            </motion.span>
+            <motion.span
+              className="absolute -inset-10 rounded-full border-[1.5px] border-transparent"
+              style={{ borderImage: "linear-gradient(120deg, rgba(0,181,255,0.35), rgba(1,249,198,0)) 1" }}
+              animate={{ rotate: [0, 180, 360], scale: [1.05, 1.2, 1.05] }}
+              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.span
+              className="absolute -inset-16 rounded-full border border-white/10"
+              animate={{ opacity: [0.15, 0.4, 0.2], scale: [1.2, 1.32, 1.2] }}
+              transition={{ duration: 7, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+            />
             initial={{ scale: 0.85, rotate: 0 }}
             animate={{ scale: 1, rotate: [0, 6, 0, -6, 0] }}
             transition={{
