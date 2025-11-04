@@ -130,6 +130,17 @@ const NotFound: React.FC = () => {
               animate={{ opacity: [0.15, 0.4, 0.2], scale: [1.2, 1.32, 1.2] }}
               transition={{ duration: 7, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
             />
+            initial={{ scale: 0.85, rotate: 0 }}
+            animate={{ scale: 1, rotate: [0, 6, 0, -6, 0] }}
+            transition={{
+              duration: 1.2,
+              repeat: Infinity,
+              repeatType: "mirror",
+              repeatDelay: 2,
+            }}
+            className="inline-flex items-center justify-center rounded-full bg-primary/15 p-6 shadow-[0_30px_80px_-40px_rgba(0,181,255,0.65)]"
+          >
+            <AlertCircle className="h-12 w-12 text-primary sm:h-16 sm:w-16" />
           </motion.div>
         </motion.div>
 
