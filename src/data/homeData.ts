@@ -235,8 +235,8 @@ export const testimonialData = {
       content:
         "AdGrades completely transformed our brand presence in a highly competitive food market. From creative campaigns to targeted ads, they brought real footfall and inquiries. The team worked like an in-house partner — fast, responsive, and always strategic.",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=facearea&w=80&h=80&q=80",
+      avatar: null,
+      initials: "BK",
     },
     {
       name: "Prakul",
@@ -245,8 +245,7 @@ export const testimonialData = {
       content:
         "In a niche B2B category like ours, quality leads matter more than volume — and AdGrades delivered both. Their marketing and tech setup helped streamline our lead funnel and improved conversion quality significantly.",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=facearea&w=80&h=80&q=80",
+      avatar: "/client/splogo.png",
     },
     {
       name: "Rajat",
@@ -255,8 +254,7 @@ export const testimonialData = {
       content:
         "We used to rely only on referrals. With AdGrades, we finally built a digital footprint that brings consistent business inquiries. Their strategy, website execution, and lead campaigns are top-notch.",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1546525848-3ce03ca516f6?auto=format&fit=facearea&w=80&h=80&q=80",
+      avatar: "/client/asti.png",
     },
     {
       name: "Adhyayan Founder",
@@ -265,8 +263,7 @@ export const testimonialData = {
       content:
         "AdGrades helped us scale our digital presence and generate qualified student inquiries regularly. Their content ideas and ad systems are simple, effective, and built for long-term growth.",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?auto=format&fit=facearea&w=80&h=80&q=80",
+      avatar: "/client/aadhyan.jpg",
     },
     {
       name: "Nagarathna",
@@ -275,8 +272,7 @@ export const testimonialData = {
       content:
         "From brand identity to website and lead generation — AdGrades managed everything end-to-end beautifully. Our online presence finally reflects our premium quality work.",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=facearea&w=80&h=80&q=80",
+      avatar: "/client/vinayaka.jpg",
     },
     {
       name: "Aditya",
@@ -285,8 +281,7 @@ export const testimonialData = {
       content:
         "They didn’t just promote our brand — they helped build it from scratch. Killer creative direction, sharp strategy, and timely execution. Highly recommend for D2C brands.",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=facearea&w=80&h=80&q=80",
+      avatar: "/client/mk.png",
     },
     {
       name: "Prakul",
@@ -295,8 +290,7 @@ export const testimonialData = {
       content:
         "Scaling a B2B food supply brand online isn't easy — but AdGrades made it look effortless. Their branding, website, and lead strategy helped us get consistent inquiries from restaurants and hotels.",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?auto=format&fit=facearea&w=80&h=80&q=80",
+      avatar: "/client/pureblend.jpg",
     },
     {
       name: "Rajath",
@@ -305,8 +299,8 @@ export const testimonialData = {
       content:
         "AdGrades helped us present our handcrafted metal art in the most premium way online. Our conversions improved dramatically because our brand now looks as premium as our product.",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=facearea&w=80&h=80&q=80",
+      avatar: null,
+      initials: "CR",
     },
     {
       name: "Bon Millette Founder",
@@ -315,8 +309,8 @@ export const testimonialData = {
       content:
         "Branding, content, and product storytelling — everything was handled so professionally. The team understands how to create trust and appeal in FMCG food brands, especially in the health segment.",
       rating: 5,
-      avatar:
-        "https://images.unsplash.com/photo-1530268729831-4b0b9e170218?auto=format&fit=facearea&w=80&h=80&q=80",
+      avatar: null,
+      initials: "BO",
     },
   ],
 };

@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 
 type Testimonial = {
   text: string;
-  image: string;
+  logoSrc?: string | null;
+  initials?: string;
   name: string;
   role: string;
 };
@@ -37,20 +38,26 @@ export const TestimonialsColumn: React.FC<TestimonialsColumnProps> = ({
       >
         {Array.from({ length: 2 }).map((_, columnIndex) => (
           <React.Fragment key={columnIndex}>
-            {testimonials.map(({ text, image, name, role }, testimonialIndex) => (
+            {testimonials.map(({ text, logoSrc, initials, name, role }, testimonialIndex) => (
               <div
                 className="p-10 rounded-3xl border shadow-lg shadow-primary/10 max-w-xs w-full"
                 key={`${columnIndex}-${testimonialIndex}`}
               >
                 <div>{text}</div>
                 <div className="flex items-center gap-2 mt-5">
-                  <img
-                    width={40}
-                    height={40}
-                    src={image}
-                    alt={name}
-                    className="h-10 w-10 rounded-full object-cover"
-                  />
+                  {logoSrc ? (
+                    <img
+                      width={40}
+                      height={40}
+                      src={logoSrc}
+                      alt={`${name} logo`}
+                      className="h-10 w-10 rounded-full object-cover bg-white"
+                    />
+                  ) : (
+                    <div className="h-10 w-10 rounded-full bg-primary/10 text-primary font-semibold flex items-center justify-center uppercase">
+                      {(initials || name.slice(0, 2)).toUpperCase()}
+                    </div>
+                  )}
                   <div className="flex flex-col">
                     <div className="font-medium tracking-tight leading-5">{name}</div>
                     <div className="leading-5 opacity-60 tracking-tight">{role}</div>

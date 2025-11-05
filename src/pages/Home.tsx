@@ -112,14 +112,29 @@ const Home: React.FC = () => {
     },
   ];
 
-  const marqueeTestimonials = testimonialData.testimonials.map((testimonial) => ({
-    text: testimonial.content,
-    image: testimonial.avatar,
-    name: testimonial.name,
-    role: testimonial.company
-      ? `${testimonial.role} • ${testimonial.company}`
-      : testimonial.role,
-  }));
+  const computeInitials = (value: string) =>
+    value
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((segment) => segment[0] ?? "")
+      .join("")
+      .slice(0, 2)
+      .toUpperCase();
+
+  const marqueeTestimonials = testimonialData.testimonials.map((testimonial) => {
+    const logoSrc = testimonial.avatar ?? undefined;
+    const fallbackLabel = testimonial.company || testimonial.name;
+
+    return {
+      text: testimonial.content,
+      logoSrc,
+      initials: logoSrc ? undefined : testimonial.initials ?? computeInitials(fallbackLabel),
+      name: testimonial.name,
+      role: testimonial.company
+        ? `${testimonial.role} • ${testimonial.company}`
+        : testimonial.role,
+    };
+  });
 
   type MarqueeTestimonial = (typeof marqueeTestimonials)[number];
   const marqueeColumns: MarqueeTestimonial[][] = [[], [], []];
