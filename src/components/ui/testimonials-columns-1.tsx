@@ -23,7 +23,22 @@ export const TestimonialsColumn: React.FC<TestimonialsColumnProps> = ({
   duration = 10,
 }) => {
   return (
-    <div className={className}>
+    <div
+      className={[
+        "relative overflow-hidden bg-background",
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background via-background/80 to-transparent"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background via-background/80 to-transparent"
+        aria-hidden="true"
+      />
       <motion.div
         animate={{
           translateY: "-50%",
