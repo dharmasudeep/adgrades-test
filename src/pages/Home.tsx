@@ -23,12 +23,8 @@ import {
   ExternalLink,
 } from "lucide-react";
 import AnimatedCounter from "../components/AnimatedCounter";
-import {
-  heroData,
-  servicesData,
-  testimonialData,
-  ctaData,
-} from "../data/homeData";
+import { heroData, servicesData, ctaData, testimonialData } from "../data/homeData";
+import { TestimonialsColumn } from "../components/ui/testimonials-columns-1";
 
 const Home: React.FC = () => {
   // Service icons mapping
@@ -115,6 +111,23 @@ const Home: React.FC = () => {
       logo: "./client/asti.png",
     },
   ];
+
+  const marqueeTestimonials = testimonialData.testimonials.map((testimonial) => ({
+    text: testimonial.content,
+    image: testimonial.avatar,
+    name: testimonial.name,
+    role: testimonial.company
+      ? `${testimonial.role} • ${testimonial.company}`
+      : testimonial.role,
+  }));
+
+  type MarqueeTestimonial = (typeof marqueeTestimonials)[number];
+  const marqueeColumns: MarqueeTestimonial[][] = [[], [], []];
+  marqueeTestimonials.forEach((testimonial, index) => {
+    marqueeColumns[index % marqueeColumns.length].push(testimonial);
+  });
+
+  const [firstColumn = [], secondColumn = [], thirdColumn = []] = marqueeColumns;
   return (
     <div className="pt-16 sm:pt-20 lg:pt-24 overflow-x-hidden">
       {" "}
@@ -689,173 +702,38 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>{" "}
-      {/* Testimonials - Modern Floating Cards */}
-      <section className="py-12 sm:py-16 md:py-20 lg:py-24 relative">
-        {/* Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-10 w-56 h-56 lg:w-72 lg:h-72 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 right-10 w-64 h-64 lg:w-80 lg:h-80 bg-gradient-to-r from-secondary/10 to-accent/10 rounded-full blur-3xl"></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 relative z-10">
-          <div className="text-center mb-12 sm:mb-16 lg:mb-20">
-            <div className="inline-flex items-center bg-secondary/10 rounded-full px-4 py-1.5 sm:px-6 sm:py-2 mb-3 sm:mb-6">
-              <Star className="w-4 h-4 sm:w-5 sm:h-5 text-secondary mr-1.5 sm:mr-2" />
-              <span className="text-secondary font-semibold text-sm sm:text-base">
-                Client Stories
-              </span>
+      {/* Testimonials - Client Stories Columns */}
+      <section className="relative py-16 sm:py-20 lg:py-24 bg-background overflow-hidden">
+        <div
+          className="absolute inset-x-0 -top-32 h-64 bg-gradient-to-b from-primary/10 via-background to-transparent"
+          aria-hidden="true"
+        ></div>
+        <div
+          className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-secondary/10 via-background to-transparent"
+          aria-hidden="true"
+        ></div>
+        <div className="relative z-10 max-w-6xl mx-auto px-3 sm:px-4 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center justify-center max-w-2xl mx-auto text-center"
+          >
+            <div className="inline-flex items-center border border-border/40 bg-card/60 backdrop-blur px-4 py-1.5 rounded-full text-sm font-semibold uppercase tracking-widest text-primary">
+              Testimonials
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground mb-3 sm:mb-4 lg:mb-6">
-              {testimonialData.title}
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mt-5">
+              What our clients are saying
             </h2>
-            <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto">
-              {testimonialData.description}
+            <p className="mt-4 text-muted-foreground">
+              Real feedback from teams that modernized their operations with our platform.
             </p>
-          </div>
-          {/* Floating Testimonials Grid */}
-          <div className="relative">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-              {" "}
-              {testimonialData.testimonials.map((testimonial, index) => (
-                <div
-                  key={testimonial.name}
-                  className={`group relative ${
-                    index % 2 === 1 ? "md:mt-8 lg:mt-12" : ""
-                  } ${index === 2 ? "lg:mt-16 xl:mt-24" : ""}`}
-                >
-                  {/* Floating Card */}
-                  <div className="relative bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-xl border border-border/50 rounded-2xl lg:rounded-3xl p-4 sm:p-6 lg:p-8 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:border-primary/50">
-                    {/* Decorative Elements */}
-                    <div className="absolute -top-2 -right-2 lg:-top-3 lg:-right-3 w-4 h-4 lg:w-6 lg:h-6 bg-gradient-to-r from-primary to-secondary rounded-full opacity-60"></div>
-                    <div className="absolute -bottom-1 -left-1 lg:-bottom-2 lg:-left-2 w-3 h-3 lg:w-4 lg:h-4 bg-gradient-to-r from-secondary to-accent rounded-full opacity-40"></div>
-
-                    {/* Quote Icon */}
-                    <div className="absolute top-4 right-4 sm:top-6 sm:right-6 text-primary/20 text-4xl sm:text-5xl lg:text-6xl font-serif leading-none">
-                      "
-                    </div>
-
-                    {/* Rating */}
-                    <div className="flex items-center mb-4 sm:mb-6">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className="h-4 w-4 sm:h-5 sm:w-5 text-secondary fill-current mr-1"
-                        />
-                      ))}
-                    </div>
-
-                    {/* Content */}
-                    <blockquote className="text-foreground/90 leading-relaxed text-sm sm:text-base lg:text-lg mb-4 sm:mb-6 lg:mb-8 relative z-10">
-                      {testimonial.content}
-                    </blockquote>
-
-                    {/* Author */}
-                    <div className="flex items-center">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-lg mr-3 sm:mr-4">
-                        {testimonial.name.charAt(0)}
-                      </div>
-                      <div>
-                        <div className="font-bold text-foreground text-sm sm:text-base">
-                          {testimonial.name}
-                        </div>
-                        <div className="text-muted-foreground text-xs sm:text-sm">
-                          {testimonial.role}
-                        </div>
-                        <div className="text-primary text-xs sm:text-sm font-medium">
-                          {testimonial.company}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Hover Glow Effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl lg:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  </div>
-                </div>
-              ))}
-            </div>{" "}
-            {/* Connecting Lines - Hidden on mobile */}
-            <svg
-              className="absolute inset-0 w-full h-full pointer-events-none hidden lg:block"
-              viewBox="0 0 1000 600"
-            >
-              <motion.path
-                d="M200 100 Q 400 50 600 150"
-                stroke="url(#testimonial-gradient)"
-                strokeWidth="2"
-                fill="none"
-                strokeDasharray="5,5"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 3, ease: "easeInOut" }}
-              />
-              <motion.path
-                d="M150 300 Q 350 200 650 350"
-                stroke="url(#testimonial-gradient)"
-                strokeWidth="2"
-                fill="none"
-                strokeDasharray="3,3"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 3, ease: "easeInOut", delay: 1.5 }}
-              />
-              <defs>
-                <linearGradient
-                  id="testimonial-gradient"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="0%"
-                >
-                  <stop
-                    offset="0%"
-                    stopColor="hsl(var(--primary))"
-                    stopOpacity="0.3"
-                  />
-                  <stop
-                    offset="100%"
-                    stopColor="hsl(var(--secondary))"
-                    stopOpacity="0.3"
-                  />
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>{" "}
-          {/* Bottom Stats */}
-          <div className="mt-12 sm:mt-16 lg:mt-20 text-center">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-              <div className="text-center">
-                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-1 sm:mb-2">
-                  98%
-                </div>
-                <div className="text-muted-foreground text-xs sm:text-sm">
-                  Client Satisfaction
-                </div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary mb-1 sm:mb-2">
-                  50+
-                </div>
-                <div className="text-muted-foreground text-xs sm:text-sm">
-                  Success Stories
-                </div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent mb-1 sm:mb-2">
-                  24/7
-                </div>
-                <div className="text-muted-foreground text-xs sm:text-sm">
-                  Support
-                </div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-1 sm:mb-2">
-                  5⭐
-                </div>
-                <div className="text-muted-foreground text-xs sm:text-sm">
-                  Average Rating
-                </div>
-              </div>
-            </div>
+          </motion.div>
+          <div className="flex justify-center gap-6 mt-12 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[740px] overflow-hidden">
+            <TestimonialsColumn testimonials={firstColumn} duration={15} />
+            <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={19} />
+            <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={17} />
           </div>
         </div>
       </section>{" "}
