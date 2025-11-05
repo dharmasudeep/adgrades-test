@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Canvas } from "@react-three/fiber";
 import {
   ArrowRight,
   Share2,
@@ -14,15 +15,15 @@ import {
   Award,
   Target,
   CheckCircle,
-  Zap,
-  Play,
-  Globe,
+  Command,
+  Cpu,
+  Layers,
   Shield,
   Rocket,
   Sparkles,
-  ExternalLink,
 } from "lucide-react";
 import AnimatedCounter from "../components/AnimatedCounter";
+import { EnergyRing, ShaderPlane } from "../components/ui/background-paper-shaders";
 import {
   heroData,
   servicesData,
@@ -115,198 +116,192 @@ const Home: React.FC = () => {
       logo: "./client/asti.png",
     },
   ];
+
+  const heroHighlights = [
+    {
+      title: "CLI-first workflows",
+      description: "Spin up a fully branded microsite, motion system, and launch kit with a single 21st.dev command.",
+      icon: Command,
+    },
+    {
+      title: "Realtime shader direction",
+      description: "Preview atmospheric hero lighting, shader palettes, and energy rings without leaving your browser.",
+      icon: Cpu,
+    },
+    {
+      title: "Campaign guardrails",
+      description: "AdGrades ships QA-ready presets, compliance checks, and analytics wiring in minutes, not weeks.",
+      icon: Shield,
+    },
+  ];
+
+  const heroStats = [
+    { label: "Launch-ready assets", value: 128, suffix: "+" },
+    { label: "Avg. conversion lift", value: 37, suffix: "%" },
+    { label: "Faster go-live", value: 4.5, suffix: "x" },
+  ];
+
+  const heroShowcaseImages = [
+    {
+      src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80",
+      alt: "Developer orchestrating a launch dashboard",
+      caption: "Adaptive launch dashboards rendered in WebGL",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80",
+      alt: "Creative strategy session",
+      caption: "Collaborative playbooks curated by AdGrades",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80",
+      alt: "Futuristic lighting installation",
+      caption: "Immersive lighting captured for hero content",
+    },
+  ];
+
   return (
     <div className="pt-16 sm:pt-20 lg:pt-24 overflow-x-hidden">
-      {" "}
-      {/* Hero Section - Dynamic and Engaging Design */}
-      <section className="relative min-h-[85vh] sm:min-h-[90vh] lg:min-h-screen flex items-center justify-center px-3 sm:px-4 lg:px-8 overflow-hidden pt-4 sm:pt-8 lg:pt-12">
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0">
-          {/* Main gradient orbs */}
-          <motion.div
-            className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-primary/30 to-secondary/20 rounded-full blur-3xl"
-            animate={{
-              scale: [1, 1.2, 1],
-              x: [0, 50, 0],
-              y: [0, -30, 0],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-          <motion.div
-            className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-secondary/25 to-accent/20 rounded-full blur-3xl"
-            animate={{
-              scale: [1.2, 1, 1.2],
-              x: [0, -40, 0],
-              y: [0, 40, 0],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 2,
-            }}
-          />
-          {/* Grid Pattern */}
-          <div className="absolute inset-0 opacity-5">
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage: `radial-gradient(circle at 1px 1px, rgb(147 51 234) 1px, transparent 0)`,
-                backgroundSize: "50px 50px",
-              }}
-            />
-          </div>
+      {/* Hero Section - Immersive Shader Experience */}
+      <section className="relative min-h-[90vh] lg:min-h-screen overflow-hidden">
+        <div className="absolute inset-0 -z-20">
+          <Canvas camera={{ position: [0, 0, 3.6], fov: 45 }}>
+            <color attach="background" args={["#050505"]} />
+            <ambientLight intensity={0.4} />
+            <pointLight position={[4, 6, 6]} intensity={1.2} color="#ff7043" />
+            <pointLight position={[-6, -3, 4]} intensity={0.6} color="#ffffff" />
+            <ShaderPlane position={[0, 0, 0]} color1="#f97316" color2="#fb923c" />
+            <ShaderPlane position={[0, 0, -0.2]} color1="#1f2937" color2="#020617" />
+            <EnergyRing radius={1.25} position={[0, 0, 0.4]} />
+          </Canvas>
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto">
-          <div className="text-center">
-            {/* Floating Badge */}
+        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-black via-black/80 to-orange-950/40" />
+        <div
+          className="absolute inset-0 -z-10 opacity-30"
+          style={{
+            backgroundImage: "radial-gradient(circle at 0 0, rgba(249, 115, 22, 0.25), transparent 55%), radial-gradient(circle at 100% 20%, rgba(251, 146, 60, 0.2), transparent 45%)",
+          }}
+        />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)]">
             <motion.div
-              className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary/20 to-secondary/20 border border-primary/30 backdrop-blur-sm mb-6 sm:mb-8"
-              initial={{ opacity: 0, y: -20 }}
+              className="space-y-10 text-left max-w-3xl"
+              initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <motion.div
-                animate={{
-                  rotate: [0, 360],
-                  scale: [1, 1.1, 1],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-primary" />
-              </motion.div>
-              <span className="text-sm sm:text-base font-semibold gradient-text">
-                🚀 Transforming Businesses Since 2023
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/80 backdrop-blur">
+                <Sparkles className="h-4 w-4 text-orange-400" />
+                <span>21st.dev × AdGrades hero launch system</span>
               </span>
-            </motion.div>
 
-            {/* Dynamic Main Title */}
-            <div className="mb-6 sm:mb-8">
-              <motion.h1
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                <motion.span
-                  className="block text-foreground mb-2"
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                >
-                  {heroData.subtitle}
-                </motion.span>{" "}
-                <motion.span
-                  className="block gradient-text-large relative"
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.6 }}
-                >
-                  {heroData.highlight}
-                  {/* Underline effect - original style restored */}
-                  <motion.div
-                    className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-primary to-secondary rounded-full"
-                    initial={{ width: 0 }}
-                    animate={{ width: "100%" }} 
-                    transition={{ duration: 1, delay: 1.2 }}
-                  />
-                </motion.span>
-              </motion.h1>
-            </div>
+              <div className="space-y-6">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white">
+                  Launch cinematic brand experiences in days, not quarters.
+                </h1>
+                <p className="text-lg sm:text-xl text-white/70 max-w-2xl">
+                  Pair AdGrades’ strategic studio with 21st.dev’s CLI to produce interactive hero sections, shader-driven product reveals, and fully wired analytics states. Every launch ships with campaign-ready assets, QA guardrails, and measurable momentum.
+                </p>
+              </div>
 
-            {/* Enhanced Description */}
-            <motion.p
-              className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-8 sm:mb-10 max-w-4xl mx-auto leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-            >
-              {heroData.description}
-            </motion.p>
-
-            {/* Dynamic CTA Buttons */}
-            <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center mb-8 sm:mb-12"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.0 }}
-            >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {" "}
+              <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   to="/contact"
-                  className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-full bg-gradient-to-r from-primary to-secondary text-primary-foreground overflow-hidden transition-all duration-300"
+                  className="group inline-flex items-center justify-center rounded-full bg-orange-500 px-7 py-3 text-base font-semibold text-black shadow-[0_0_30px_rgba(249,115,22,0.35)] transition hover:bg-orange-400"
                 >
-                  {/* Animated background */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    initial={{ x: "-100%" }}
-                    whileHover={{ x: "0%" }}
-                    transition={{ duration: 0.3 }}
-                  />
-                  <Zap className="w-5 h-5 mr-2 relative z-10 group-hover:animate-pulse" />
-                  <span className="relative z-10">{heroData.primaryCTA}</span>
-                  <ArrowRight className="ml-2 h-5 w-5 relative z-10 group-hover:translate-x-1 transition-transform" />
+                  Start a project
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
-              </motion.div>
-
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
                 <Link
-                  to="/portfolio"
-                  className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
+                  to="/services"
+                  className="inline-flex items-center justify-center rounded-full border border-white/30 px-7 py-3 text-base font-semibold text-white/80 backdrop-blur transition hover:border-white hover:text-white"
                 >
-                  <Play className="w-5 h-5 mr-2" />
-                  <span>{heroData.secondaryCTA}</span>
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  Explore the workflow
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
-              </motion.div>
+              </div>
+
+              <div className="grid gap-6 sm:grid-cols-2">
+                {heroHighlights.map((item) => (
+                  <div key={item.title} className="flex gap-4 rounded-2xl border border-white/10 bg-black/30 p-5 backdrop-blur">
+                    <div className="mt-1 flex h-11 w-11 items-center justify-center rounded-full bg-orange-500/20 text-orange-300">
+                      <item.icon className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+                      <p className="text-sm text-white/60">{item.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <dl className="grid gap-6 sm:grid-cols-3">
+                {heroStats.map((stat) => (
+                  <div key={stat.label} className="rounded-2xl border border-white/10 bg-black/40 p-5 backdrop-blur">
+                    <dt className="text-sm text-white/60">{stat.label}</dt>
+                    <dd className="mt-3 flex items-end gap-1 text-3xl font-semibold text-white">
+                      <AnimatedCounter end={stat.value} duration={2.4} />
+                      <span>{stat.suffix}</span>
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </motion.div>
+
+            <motion.div
+              className="relative"
+              initial={{ opacity: 0, y: 60 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, ease: "easeOut", delay: 0.1 }}
+            >
+              <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-gradient-to-br from-orange-500/30 via-orange-400/10 to-transparent blur-3xl" />
+              <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-black/40 p-6 shadow-[0_30px_80px_rgba(5,5,5,0.6)] backdrop-blur">
+                <div className="grid gap-4">
+                  {heroShowcaseImages.map((asset, index) => (
+                    <motion.figure
+                      key={asset.alt}
+                      className="group relative overflow-hidden rounded-2xl border border-white/10"
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.1 * index }}
+                    >
+                      <img
+                        src={asset.src}
+                        alt={asset.alt}
+                        className="h-32 w-full object-cover transition duration-700 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      <figcaption className="absolute inset-0 flex items-end bg-gradient-to-t from-black/70 via-black/20 to-transparent p-4 text-sm text-white/80">
+                        {asset.caption}
+                      </figcaption>
+                    </motion.figure>
+                  ))}
+                </div>
+
+                <div className="mt-6 space-y-4 rounded-2xl border border-white/10 bg-white/5 p-5 text-white/80">
+                  <div className="flex items-center gap-3 text-sm">
+                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-orange-500/20 text-orange-200">
+                      <Layers className="h-4 w-4" />
+                    </span>
+                    <div>
+                      <p className="text-xs uppercase tracking-wide text-white/50">21st.dev command</p>
+                      <p className="font-mono text-sm text-white/80">pnpm dlx 21st launch adgrades --with-shaders</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm">
+                    <div>
+                      <p className="text-xs uppercase tracking-wide text-white/50">Live telemetry</p>
+                      <p className="font-semibold text-white">Conversion lift tracking active</p>
+                    </div>
+                    <Rocket className="h-5 w-5 text-orange-300" />
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
-
-        {/* Floating Elements */}
-        <motion.div
-          className="absolute top-1/4 right-12 w-20 h-20 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl hidden lg:block"
-          animate={{
-            y: [0, -20, 0],
-            rotate: [0, 10, 0],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-1/3 left-12 w-16 h-16 bg-gradient-to-br from-secondary/20 to-accent/20 rounded-full hidden lg:block"
-          animate={{
-            y: [0, 15, 0],
-            x: [0, 10, 0],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1,
-          }}
-        />
-      </section>{" "}
+      </section>
       {/* Stats Section - Modern Floating Design */}
       <section className="py-12 sm:py-16 md:py-20 lg:py-24 relative overflow-hidden">
         {/* Background Elements */}
