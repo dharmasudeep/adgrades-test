@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Canvas } from "@react-three/fiber";
 import {
   ArrowRight,
   Share2,
@@ -163,16 +162,27 @@ const Home: React.FC = () => {
     <div className="pt-16 sm:pt-20 lg:pt-24 overflow-x-hidden">
       {/* Hero Section - Immersive Shader Experience */}
       <section className="relative min-h-[90vh] lg:min-h-screen overflow-hidden">
-        <div className="absolute inset-0 -z-20">
-          <Canvas camera={{ position: [0, 0, 3.6], fov: 45 }}>
-            <color attach="background" args={["#050505"]} />
-            <ambientLight intensity={0.4} />
-            <pointLight position={[4, 6, 6]} intensity={1.2} color="#ff7043" />
-            <pointLight position={[-6, -3, 4]} intensity={0.6} color="#ffffff" />
-            <ShaderPlane position={[0, 0, 0]} color1="#f97316" color2="#fb923c" />
-            <ShaderPlane position={[0, 0, -0.2]} color1="#1f2937" color2="#020617" />
-            <EnergyRing radius={1.25} position={[0, 0, 0.4]} />
-          </Canvas>
+        <div className="absolute inset-0 -z-20 overflow-hidden bg-[#050505]">
+          <ShaderPlane
+            color1="#0f172a"
+            color2="#020617"
+            className="opacity-80"
+          />
+          <ShaderPlane
+            color1="#f97316"
+            color2="#fb923c"
+            className="mix-blend-screen opacity-70"
+            style={{ transform: "translateY(-6%) scale(1.08)" }}
+            parallax={18}
+          />
+          <ShaderPlane
+            color1="#1f2937"
+            color2="#020617"
+            className="opacity-35 blur-xl"
+            style={{ transform: "translateY(12%) scale(1.2)" }}
+            parallax={8}
+          />
+          <EnergyRing size={420} className="hidden sm:block" />
         </div>
 
         <div className="absolute inset-0 -z-10 bg-gradient-to-br from-black via-black/80 to-orange-950/40" />
