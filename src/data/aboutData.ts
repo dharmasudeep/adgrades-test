@@ -62,14 +62,14 @@ export const team = [
     name: "Chandan B Krishna",
     role: "Founder, CEO",
     image: "/chandan.jpg",
-    bio: "Chandan is the visionary force behind AdGrades, leading the agency with a passion for creativity, strategy, and results. With a sharp eye for market trends and a deep understanding of brand building, Chandan specializes in crafting marketing solutions that not only boost visibility but also drive profitability.",
+    bio: "The brain (and occasional chaos coordinator) behind AdGrades, Chandan turns big ideas into bigger realities. Equal parts strategist, storyteller, and serial problem-solver, he’s on a mission to make AI not just smart but actually useful. When he’s not leading the charge, he’s probably brainstorming the next “impossible” thing the team will somehow build anyway.",
     linkedin: "https://www.linkedin.com/in/chandan-b-krishna-91562a279/",
   },
   {
     name: "Maneesh C Gowda",
     role: "CMO",
     image: "/maneesh.jpg",
-    bio: "Maneesh is the tech brain behind AdGrades. From writing smart code to building tools that power our marketing campaigns, he makes sure the technology we use is fast, reliable, and effective. He's the one who turns ideas into real, working digital tools that power our marketing strategies.",
+    bio: "The creative spark behind AdGrades’ voice, Maneesh can turn data into stories and strategies into results usually before his coffee gets cold. He’s the mastermind who makes marketing feel like magic (with just a bit of math). If you’ve ever wondered how AdGrades always looks this good blame Maneesh.",
     linkedin: "https://www.linkedin.com/in/maneesh-c-gowda-27942b258",
   },
   {
@@ -94,7 +94,7 @@ export const team = [
     linkedin: "https://www.linkedin.com/in/chandu-m-35b920295",
   },
   {
-    name: "Pavanbkrishna",
+    name: "Pavan B Krishna",
     role: "Ads Manager",
     image: "/pavan.jpg",
     bio: "Pavan is the mind behind our high-performing ad campaigns. He plans, runs, and tracks ads that reach the right people at the right time. With a focus on results and smart spending, Pavan helps brands grow faster through creative, data-driven advertising that truly works.",
