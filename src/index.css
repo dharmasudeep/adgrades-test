@@ -174,7 +174,29 @@
   animation-delay: 2s;
 }
 
-/* Fade in animation for other pages */
+/* Fade animations */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -187,7 +209,11 @@
 }
 
 .animate-fade-in {
-  animation: fadeIn 1s ease-out;
+  animation: fade-in 0.9s ease-out forwards;
+}
+
+.animate-fade-up {
+  animation: fade-up 1s ease-out forwards;
 }
 
 /* Button animations for other pages - Purple/Pink theme */

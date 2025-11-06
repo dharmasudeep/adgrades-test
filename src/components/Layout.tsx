@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Menu,
@@ -24,6 +24,32 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { isDark, toggleTheme } = useTheme();
   const location = useLocation();
+  const navigate = useNavigate();
+  const pendingScrollToHeroRef = useRef(false);
+
+  const scrollToHero = useCallback(() => {
+    const heroSection = document.getElementById("hero");
+    if (heroSection) {
+      heroSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, []);
+
+  const handleLogoClick = (
+    event?: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
+  ) => {
+    event?.preventDefault();
+    setIsMenuOpen(false);
+
+    if (location.pathname === "/") {
+      scrollToHero();
+      return;
+    }
+
+    pendingScrollToHeroRef.current = true;
+    navigate("/");
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,8 +61,17 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
+    if (pendingScrollToHeroRef.current && location.pathname === "/") {
+      const animationFrame = window.requestAnimationFrame(() => {
+        scrollToHero();
+        pendingScrollToHeroRef.current = false;
+      });
+
+      return () => window.cancelAnimationFrame(animationFrame);
+    }
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location.pathname, scrollToHero]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -100,6 +135,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               {/* Logo - Mobile Responsive */}
               <Link
                 to="/"
+                onClick={handleLogoClick}
                 className="flex items-center space-x-2 sm:space-x-3 group"
               >
                 <img
@@ -185,11 +221,17 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <div className="mobile-menu absolute top-0 right-0 h-full w-80 max-w-[85vw] nav-glass transform transition-transform duration-300 ease-out border-l border-primary/20">
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between p-4 sm:p-6 border-b border-border/50">
-                  <img
-                    src={isDark ? "/Asset 2.png" : "/Asset 1.png"}
-                    alt="AdGrades Logo"
-                    className="h-6 sm:h-8 w-auto object-contain"
-                  />{" "}
+                  <button
+                    type="button"
+                    onClick={(event) => handleLogoClick(event)}
+                    className="flex items-center"
+                  >
+                    <img
+                      src={isDark ? "/Asset 2.png" : "/Asset 1.png"}
+                      alt="AdGrades Logo"
+                      className="h-6 sm:h-8 w-auto object-contain"
+                    />
+                  </button>{" "}
                   <button
                     onClick={() => setIsMenuOpen(false)}
                     className="p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all duration-300"

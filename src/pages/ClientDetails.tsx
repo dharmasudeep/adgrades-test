@@ -58,7 +58,7 @@ const ClientDetails: React.FC = () => {
         </motion.button>
       </div>
       {/* Hero Image */}
-      <section className="mb-4 sm:mb-6 lg:mb-8">
+      <section id="hero" className="mb-4 sm:mb-6 lg:mb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="relative overflow-hidden rounded-lg sm:rounded-xl"

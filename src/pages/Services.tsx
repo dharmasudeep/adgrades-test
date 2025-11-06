@@ -27,7 +27,10 @@ const Services: React.FC = () => {
     <div className="min-h-screen pt-14 sm:pt-16 lg:pt-20 bg-background">
       {" "}
       {/* Hero Section */}
-      <section className="py-4 sm:py-6 md:py-8 lg:py-12 relative overflow-hidden">
+      <section
+        id="hero"
+        className="py-4 sm:py-6 md:py-8 lg:py-12 relative overflow-hidden"
+      >
         {/* Background Elements */}
         <div className="absolute inset-0">
           <div className="absolute top-1/4 left-1/4 w-48 h-48 lg:w-64 lg:h-64 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-full blur-3xl"></div>

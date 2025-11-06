@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "aos": "^2.3.4",
+    "@radix-ui/react-slot": "^1.0.2",
+    "class-variance-authority": "^0.7.0",
     "crypto-js": "^4.2.0",
     "framer-motion": "^12.18.1",
     "lucide-react": "^0.344.0",
