@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   Share2,
@@ -14,8 +14,6 @@ import {
   Award,
   Target,
   CheckCircle,
-  Zap,
-  Play,
   Globe,
   Shield,
   Rocket,
@@ -142,199 +140,169 @@ const Home: React.FC = () => {
     marqueeColumns[index % marqueeColumns.length].push(testimonial);
   });
 
+  const shouldReduceMotion = useReducedMotion();
   const [firstColumn = [], secondColumn = [], thirdColumn = []] = marqueeColumns;
   return (
     <div className="pt-16 sm:pt-20 lg:pt-24 overflow-x-hidden">
-      {" "}
-      {/* Hero Section - Dynamic and Engaging Design */}
-      <section className="relative min-h-[85vh] sm:min-h-[90vh] lg:min-h-screen flex items-center justify-center px-3 sm:px-4 lg:px-8 overflow-hidden pt-4 sm:pt-8 lg:pt-12">
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0">
-          {/* Main gradient orbs */}
+      {/* Hero Section */}
+      <section className="relative isolate flex min-h-[80vh] sm:min-h-[85vh] lg:min-h-screen items-center justify-center overflow-hidden px-6 lg:px-16 py-16 sm:py-20">
+        <div className="hero-backdrop" aria-hidden="true" />
+        <div className="absolute inset-0" aria-hidden="true">
           <motion.div
-            className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-primary/30 to-secondary/20 rounded-full blur-3xl"
-            animate={{
-              scale: [1, 1.2, 1],
-              x: [0, 50, 0],
-              y: [0, -30, 0],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+            className="absolute top-[18%] left-[12%] h-80 w-80 rounded-full bg-gradient-to-br from-[#c55eff33] via-[#d794ff33] to-[#ff82e033] blur-3xl"
+            animate={
+              shouldReduceMotion
+                ? undefined
+                : {
+                    scale: [1, 1.12, 1],
+                    x: [0, 40, 0],
+                    y: [0, -24, 0],
+                  }
+            }
+            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div
-            className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-secondary/25 to-accent/20 rounded-full blur-3xl"
-            animate={{
-              scale: [1.2, 1, 1.2],
-              x: [0, -40, 0],
-              y: [0, 40, 0],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 2,
-            }}
+            className="absolute bottom-[12%] right-[18%] h-72 w-72 rounded-full bg-gradient-to-br from-[#00e0b81f] via-transparent to-transparent blur-3xl"
+            animate={
+              shouldReduceMotion
+                ? undefined
+                : {
+                    scale: [1.1, 1, 1.1],
+                    x: [0, -36, 0],
+                    y: [0, 28, 0],
+                  }
+            }
+            transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 1 }}
           />
-          {/* Grid Pattern */}
-          <div className="absolute inset-0 opacity-5">
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage: `radial-gradient(circle at 1px 1px, rgb(147 51 234) 1px, transparent 0)`,
-                backgroundSize: "50px 50px",
-              }}
-            />
-          </div>
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto">
-          <div className="text-center">
+        <motion.div
+          className="relative z-10 w-full max-w-[1200px]"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: shouldReduceMotion
+              ? {}
+              : { transition: { staggerChildren: 0.05, delayChildren: 0.2 } },
+          }}
+        >
+          <div className="mx-auto flex max-w-[820px] flex-col items-center text-center space-y-6 sm:space-y-8">
             {/* Floating Badge */}
             <motion.div
-              className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary/20 to-secondary/20 border border-primary/30 backdrop-blur-sm mb-6 sm:mb-8"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              whileHover={{ scale: 1.05 }}
+              className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-5 py-2 text-sm font-semibold uppercase tracking-[0.18em] text-[var(--color-text)] shadow-[0_0_35px_rgba(197,94,255,0.18)] backdrop-blur"
+              variants={{
+                hidden: { opacity: 0, y: shouldReduceMotion ? 0 : -20 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              <motion.div
-                animate={{
-                  rotate: [0, 360],
-                  scale: [1, 1.1, 1],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
+              <motion.span
+                animate={
+                  shouldReduceMotion
+                    ? undefined
+                    : { rotate: [0, 360] }
+                }
+                transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+                className="flex h-6 w-6 items-center justify-center rounded-full bg-[#00e0b822]"
               >
-                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-primary" />
-              </motion.div>
-              <span className="text-sm sm:text-base font-semibold gradient-text">
-                🚀 Transforming Businesses Since 2023
+                <Sparkles
+                  className="h-3.5 w-3.5 text-[#00e0b8]"
+                  aria-hidden="true"
+                />
+              </motion.span>
+              <span className="text-xs sm:text-sm text-[#bcbcbc]">
+                Transforming Brands Since 2023
               </span>
             </motion.div>
 
             {/* Dynamic Main Title */}
-            <div className="mb-6 sm:mb-8">
-              <motion.h1
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                <motion.span
-                  className="block text-foreground mb-2"
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                >
-                  {heroData.subtitle}
-                </motion.span>{" "}
-                <motion.span
-                  className="block gradient-text-large relative"
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.6 }}
-                >
-                  {heroData.highlight}
-                  {/* Underline effect - original style restored */}
-                  <motion.div
-                    className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-primary to-secondary rounded-full"
-                    initial={{ width: 0 }}
-                    animate={{ width: "100%" }} 
-                    transition={{ duration: 1, delay: 1.2 }}
-                  />
-                </motion.span>
-              </motion.h1>
-            </div>
+            <motion.h1
+              className="hero-surface relative overflow-hidden rounded-[28px] px-6 py-6 font-display text-[clamp(2.5rem,6vw,4rem)] font-bold leading-tight text-balance text-[var(--color-text)] hero-title-glow"
+              variants={{
+                hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 24 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+            >
+              <span className="block text-[clamp(1rem,3vw,1.5rem)] font-medium text-[#bcbcbc]">
+                {heroData.subtitle}
+              </span>
+              <span className="mt-3 block text-[clamp(2.5rem,6vw,4rem)] font-bold">
+                <span className="gradient-text-large">{heroData.highlight}</span>
+              </span>
+            </motion.h1>
 
             {/* Enhanced Description */}
             <motion.p
-              className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-8 sm:mb-10 max-w-4xl mx-auto leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
+              className="max-w-[640px] text-[clamp(1rem,2.6vw,1.35rem)] leading-relaxed text-[#bcbcbc]"
+              variants={{
+                hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 24 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 0.65, ease: "easeOut" }}
             >
               {heroData.description}
             </motion.p>
 
             {/* Dynamic CTA Buttons */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center mb-8 sm:mb-12"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.0 }}
+              className="flex w-full flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-6"
+              variants={{
+                hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 24 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 0.65, ease: "easeOut" }}
             >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <Link
+                to="/contact"
+                aria-label="Get started today with AdGrades"
+                className="group relative inline-flex w-full max-w-[260px] items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#c55eff] via-[#d794ff] to-[#ff82e0] px-8 py-4 text-lg font-semibold text-white shadow-[0_0_30px_rgba(197,94,255,0.25)] transition duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-[0_0_40px_rgba(197,94,255,0.35)] sm:max-w-none"
+                style={{ transition: "all 0.25s ease-in-out" }}
               >
-                {" "}
-                <Link
-                  to="/contact"
-                  className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-full bg-gradient-to-r from-primary to-secondary text-primary-foreground overflow-hidden transition-all duration-300"
-                >
-                  {/* Animated background */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    initial={{ x: "-100%" }}
-                    whileHover={{ x: "0%" }}
-                    transition={{ duration: 0.3 }}
-                  />
-                  <Zap className="w-5 h-5 mr-2 relative z-10 group-hover:animate-pulse" />
-                  <span className="relative z-10">{heroData.primaryCTA}</span>
-                  <ArrowRight className="ml-2 h-5 w-5 relative z-10 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </motion.div>
+                <span aria-hidden="true" className="text-xl">⚡</span>
+                <span>{heroData.primaryCTA}</span>
+              </Link>
 
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <Link
+                to="/portfolio"
+                aria-label="See our latest work"
+                className="group inline-flex w-full max-w-[260px] items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-8 py-4 text-lg font-semibold text-[var(--color-text)] transition duration-200 ease-in-out hover:-translate-y-0.5 hover:scale-[1.03] hover:border-[#00e0b8] hover:bg-white/10 hover:shadow-[0_0_28px_rgba(0,224,184,0.25)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:max-w-none"
+                style={{ transition: "all 0.25s ease-in-out" }}
               >
-                <Link
-                  to="/portfolio"
-                  className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
-                >
-                  <Play className="w-5 h-5 mr-2" />
-                  <span>{heroData.secondaryCTA}</span>
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </motion.div>
+                <span aria-hidden="true" className="text-lg">▶️</span>
+                <span>{heroData.secondaryCTA}</span>
+              </Link>
+            </motion.div>
+
+            {/* Trust Signals */}
+            <motion.div
+              className="mt-4 flex w-full flex-col items-center gap-4"
+              variants={{
+                hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 24 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+            >
+              <p className="text-sm font-medium uppercase tracking-[0.2em] text-[#bcbcbc]">
+                Trusted by 50+ growing brands
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4">
+                {clients.slice(0, 6).map((client) => (
+                  <img
+                    key={client.name}
+                    src={client.logo}
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    className="h-8 w-auto opacity-80 grayscale brightness-125 transition duration-200 ease-in-out hover:opacity-100 hover:grayscale-0 hover:brightness-110"
+                  />
+                ))}
+              </div>
             </motion.div>
           </div>
-        </div>
-
-        {/* Floating Elements */}
-        <motion.div
-          className="absolute top-1/4 right-12 w-20 h-20 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl hidden lg:block"
-          animate={{
-            y: [0, -20, 0],
-            rotate: [0, 10, 0],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-1/3 left-12 w-16 h-16 bg-gradient-to-br from-secondary/20 to-accent/20 rounded-full hidden lg:block"
-          animate={{
-            y: [0, 15, 0],
-            x: [0, 10, 0],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1,
-          }}
-        />
-      </section>{" "}
+        </motion.div>
+      </section>
       {/* Stats Section - Modern Floating Design */}
       <section className="py-12 sm:py-16 md:py-20 lg:py-24 relative overflow-hidden">
         {/* Background Elements */}

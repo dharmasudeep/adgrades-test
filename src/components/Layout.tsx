@@ -150,11 +150,15 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 {/* Desktop CTA Button - Custom styling to avoid brand-button interference */}
                 <Link
                   to="/contact"
-                  className={`hidden lg:inline-flex items-center justify-center whitespace-nowrap flex-shrink-0 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-full transition-all duration-300 hover:shadow-lg hover:scale-105 ${
-                    isScrolled ? "px-3 py-1.5 text-xs" : "px-4 py-2 text-sm"
+                  aria-label="Start a project with AdGrades"
+                  className={`hidden lg:inline-flex items-center justify-center whitespace-nowrap flex-shrink-0 rounded-full bg-gradient-to-r from-[#c55eff] via-[#d794ff] to-[#ff82e0] font-semibold text-white shadow-[0_0_24px_rgba(197,94,255,0.25)] transition duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-[0_0_32px_rgba(197,94,255,0.3)] ${
+                    isScrolled ? "px-3 py-1.5 text-xs" : "px-5 py-2.5 text-sm"
                   }`}
                 >
-                  Start a Project
+                  <span aria-hidden="true" className="mr-1 text-base">
+                    ⚡
+                  </span>
+                  <span>Start a Project</span>
                 </Link>
                 {/* Mobile Menu Button - Smaller and more proportional */}
                 <button
@@ -221,10 +225,14 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   {" "}
                   <Link
                     to="/contact"
+                    aria-label="Start a project with AdGrades"
                     onClick={() => setIsMenuOpen(false)}
-                    className="w-full bg-gradient-to-r from-primary to-secondary text-white font-semibold px-4 py-3 rounded-full transition-all duration-300 hover:shadow-lg hover:scale-105 flex items-center justify-center"
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#c55eff] via-[#d794ff] to-[#ff82e0] px-5 py-3 font-semibold text-white shadow-[0_0_24px_rgba(197,94,255,0.25)] transition duration-200 ease-in-out hover:-translate-y-0.5 hover:scale-[1.03] hover:shadow-[0_0_32px_rgba(197,94,255,0.3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                   >
-                    Start a Project
+                    <span aria-hidden="true" className="text-base">
+                      ⚡
+                    </span>
+                    <span>Start a Project</span>
                   </Link>
                   <div className="text-center">
                     {" "}

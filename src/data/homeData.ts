@@ -1,11 +1,11 @@
 export const heroData = {
   title: "Transform Your Digital Presence",
-  subtitle: "Elevate Your Brand with",
+  subtitle: "Where Startups Become Brands.",
   highlight: "AdGrades",
   description:
-    "We help startups and businesses build powerful digital marketing strategies that drive growth, engagement, and measurable results.",
+    "Trusted by over 50 growth-focused businesses to scale engagement, inquiries, and measurable results.",
   primaryCTA: "Get Started Today",
-  secondaryCTA: "View Our Work",
+  secondaryCTA: "See Our Work",
   stats: [
     { number: 25, label: "Happy Clients", suffix: "+" },
     { number: 15, label: "Team Members", suffix: "" },

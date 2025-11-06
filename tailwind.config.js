@@ -50,8 +50,8 @@ export default {
         'slate-darker': '#0F172A',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'DM Sans', 'system-ui', 'sans-serif'],
+        display: ['Poppins', 'Inter', 'DM Sans', 'sans-serif'],
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
@@ -60,8 +60,8 @@ export default {
         'marquee': 'marquee var(--duration) linear infinite',
       },
       backgroundImage: {
-        'brand-gradient': 'linear-gradient(135deg, #00B5FF 0%, #01F9C6 100%)',
-        'professional-gradient': 'linear-gradient(135deg, #00B5FF 0%, #01F9C6 100%)',
+        'brand-gradient': 'linear-gradient(135deg, #c55eff 0%, #d794ff 50%, #ff82e0 100%)',
+        'professional-gradient': 'linear-gradient(135deg, #c55eff 0%, #d794ff 50%, #ff82e0 100%)',
       },
       spacing: {
         '18': '4.5rem',
