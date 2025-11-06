@@ -235,12 +235,28 @@ const Home: React.FC = () => {
                   {heroData.subtitle}
                 </motion.span>{" "}
                 <motion.span
-                  className="block gradient-text-large"
+                  className="relative block gradient-text-large pb-8"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, ease: "easeOut", delay: 0.6 }}
                 >
                   {heroData.highlight}
+                  <motion.div
+                    className="absolute left-1/2 top-full mt-3 h-1.5 w-48 -translate-x-1/2 rounded-full bg-gradient-to-r from-secondary via-primary to-accent shadow-[0_0_20px_rgba(147,51,234,0.45)]"
+                    initial={{ opacity: 0, scaleX: 0.4 }}
+                    animate={{ opacity: 1, scaleX: 1 }}
+                    transition={{ duration: 0.7, ease: "easeOut", delay: 0.9 }}
+                    style={{ originX: 0.5 }}
+                  />
+                  <motion.div
+                    className="absolute left-1/2 top-full mt-3 h-1.5 w-48 -translate-x-1/2"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: [0.4, 1, 0.4] }}
+                    transition={{ duration: 2.4, repeat: Infinity, delay: 1.1 }}
+                  >
+                    <div className="absolute -left-3 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full bg-secondary/80 blur-[1px]" />
+                    <div className="absolute -right-3 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full bg-accent/80 blur-[1px]" />
+                  </motion.div>
                 </motion.span>
                 <motion.span
                   className="block text-lg sm:text-xl md:text-2xl text-muted-foreground/90 mt-3"
