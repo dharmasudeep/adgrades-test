@@ -222,32 +222,49 @@ const Home: React.FC = () => {
             <div className="mb-6 sm:mb-8">
               <motion.h1
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
               >
                 <motion.span
                   className="block text-foreground mb-2"
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
                 >
                   {heroData.subtitle}
                 </motion.span>{" "}
                 <motion.span
-                  className="block gradient-text-large relative"
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.6 }}
+                  className="relative block gradient-text-large pb-8"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, ease: "easeOut", delay: 0.6 }}
                 >
                   {heroData.highlight}
-                  {/* Underline effect - original style restored */}
                   <motion.div
-                    className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-primary to-secondary rounded-full"
-                    initial={{ width: 0 }}
-                    animate={{ width: "100%" }} 
-                    transition={{ duration: 1, delay: 1.2 }}
+                    className="absolute left-1/2 top-full mt-3 h-1.5 w-48 -translate-x-1/2 rounded-full bg-gradient-to-r from-secondary via-primary to-accent shadow-[0_0_20px_rgba(147,51,234,0.45)]"
+                    initial={{ opacity: 0, scaleX: 0.4 }}
+                    animate={{ opacity: 1, scaleX: 1 }}
+                    transition={{ duration: 0.7, ease: "easeOut", delay: 0.9 }}
+                    style={{ originX: 0.5 }}
                   />
+                  <motion.div
+                    className="absolute left-1/2 top-full mt-3 h-1.5 w-48 -translate-x-1/2"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: [0.4, 1, 0.4] }}
+                    transition={{ duration: 2.4, repeat: Infinity, delay: 1.1 }}
+                  >
+                    <div className="absolute -left-3 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full bg-secondary/80 blur-[1px]" />
+                    <div className="absolute -right-3 top-1/2 h-3 w-3 -translate-y-1/2 rounded-full bg-accent/80 blur-[1px]" />
+                  </motion.div>
+                </motion.span>
+                <motion.span
+                  className="block text-lg sm:text-xl md:text-2xl text-muted-foreground/90 mt-3"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, ease: "easeOut", delay: 0.8 }}
+                >
+                  Where creativity meets measurable growth.
                 </motion.span>
               </motion.h1>
             </div>
