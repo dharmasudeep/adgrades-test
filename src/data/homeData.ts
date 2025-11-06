@@ -233,7 +233,7 @@ export const testimonialData = {
       company: "Brahma Kalasha",
       role: "Founder",
       content:
-        "AdGrades completely transformed our brand presence in a highly competitive food market. From creative campaigns to targeted ads, they brought real footfall and inquiries. The team worked like an in-house partner — fast, responsive, and always strategic.",
+        "AdGrades completely transformed our brand presence in a highly competitive food market. From creative campaigns to targeted ads, they brought real footfall and inquiries. The team worked like an in-house partner fast, responsive, and always strategic.",
       rating: 5,
       avatar: null,
       initials: "BK",
@@ -243,7 +243,7 @@ export const testimonialData = {
       company: "SP Enterprises",
       role: "Director",
       content:
-        "In a niche B2B category like ours, quality leads matter more than volume — and AdGrades delivered both. Their marketing and tech setup helped streamline our lead funnel and improved conversion quality significantly.",
+        "In a niche B2B category like ours, quality leads matter more than volume and AdGrades delivered both. Their marketing and tech setup helped streamline our lead funnel and improved conversion quality significantly.",
       rating: 5,
       avatar: "/client/splogo.png",
     },
@@ -270,7 +270,7 @@ export const testimonialData = {
       company: "Vinayaka Enterprises",
       role: "Director",
       content:
-        "From brand identity to website and lead generation — AdGrades managed everything end-to-end beautifully. Our online presence finally reflects our premium quality work.",
+        "From brand identity to website and lead generation AdGrades managed everything end-to-end beautifully. Our online presence finally reflects our premium quality work.",
       rating: 5,
       avatar: "/client/vinayaka.jpg",
     },
@@ -279,7 +279,7 @@ export const testimonialData = {
       company: "M K Streetwear",
       role: "Founder",
       content:
-        "They didn’t just promote our brand — they helped build it from scratch. Killer creative direction, sharp strategy, and timely execution. Highly recommend for D2C brands.",
+        "They didn’t just promote our brand they helped build it from scratch. Killer creative direction, sharp strategy, and timely execution. Highly recommend for D2C brands.",
       rating: 5,
       avatar: "/client/mk.png",
     },
@@ -288,7 +288,7 @@ export const testimonialData = {
       company: "PureBlend Foods",
       role: "Founder",
       content:
-        "Scaling a B2B food supply brand online isn't easy — but AdGrades made it look effortless. Their branding, website, and lead strategy helped us get consistent inquiries from restaurants and hotels.",
+        "Scaling a B2B food supply brand online isn't easy but AdGrades made it look effortless. Their branding, website, and lead strategy helped us get consistent inquiries from restaurants and hotels.",
       rating: 5,
       avatar: "/client/pureblend.jpg",
     },
@@ -307,7 +307,7 @@ export const testimonialData = {
       company: "Bon Millette",
       role: "Founder",
       content:
-        "Branding, content, and product storytelling — everything was handled so professionally. The team understands how to create trust and appeal in FMCG food brands, especially in the health segment.",
+        "Branding, content, and product storytelling everything was handled so professionally. The team understands how to create trust and appeal in FMCG food brands, especially in the health segment.",
       rating: 5,
       avatar: null,
       initials: "BO",
