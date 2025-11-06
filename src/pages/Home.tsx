@@ -1,6 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import {
   ArrowRight,
   Share2,
@@ -27,6 +34,39 @@ import { heroData, servicesData, ctaData, testimonialData } from "../data/homeDa
 import { TestimonialsColumn } from "../components/ui/testimonials-columns-1";
 
 const Home: React.FC = () => {
+  const prefersReducedMotion = useReducedMotion();
+  const heroRef = React.useRef<HTMLElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start end", "end start"],
+  });
+  const backgroundParallaxY = useTransform(scrollYProgress, [0, 1], ["0%", "2%"]);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const glowX = useSpring(mouseX, { stiffness: 60, damping: 20, mass: 1 });
+  const glowY = useSpring(mouseY, { stiffness: 60, damping: 20, mass: 1 });
+
+  const handleMouseMove = React.useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      if (prefersReducedMotion) return;
+
+      const rect = heroRef.current?.getBoundingClientRect();
+      if (!rect) return;
+
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      mouseX.set(x - rect.width / 2);
+      mouseY.set(y - rect.height / 2);
+    },
+    [mouseX, mouseY, prefersReducedMotion]
+  );
+
+  const handleMouseLeave = React.useCallback(() => {
+    if (prefersReducedMotion) return;
+    mouseX.set(0);
+    mouseY.set(0);
+  }, [mouseX, mouseY, prefersReducedMotion]);
+
   // Service icons mapping
   const serviceIcons = {
     "Social Media Marketing": Share2,
@@ -147,51 +187,94 @@ const Home: React.FC = () => {
     <div className="pt-16 sm:pt-20 lg:pt-24 overflow-x-hidden">
       {" "}
       {/* Hero Section - Dynamic and Engaging Design */}
-      <section className="relative min-h-[85vh] sm:min-h-[90vh] lg:min-h-screen flex items-center justify-center px-3 sm:px-4 lg:px-8 overflow-hidden pt-4 sm:pt-8 lg:pt-12">
+      <motion.section
+        ref={heroRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className="relative min-h-[85vh] sm:min-h-[90vh] lg:min-h-screen flex items-center justify-center px-3 sm:px-4 lg:px-8 overflow-hidden pt-4 sm:pt-8 lg:pt-12 bg-[#0d0b14]"
+      >
         {/* Animated Background Elements */}
-        <div className="absolute inset-0">
-          {/* Main gradient orbs */}
+        <motion.div
+          className="absolute inset-0"
+          style={{ y: prefersReducedMotion ? "0%" : backgroundParallaxY }}
+        >
+          <div className="absolute inset-0 bg-[#0d0b14]" />
+          {/* Aurora gradients */}
           <motion.div
-            className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-primary/30 to-secondary/20 rounded-full blur-3xl"
-            animate={{
-              scale: [1, 1.2, 1],
-              x: [0, 50, 0],
-              y: [0, -30, 0],
+            className="absolute -top-48 -left-32 w-[40rem] h-[40rem] rounded-full blur-[160px]"
+            style={{
+              background: "linear-gradient(135deg, rgba(236,72,153,0.2), rgba(139,92,246,0.15))",
+              opacity: 0.22,
             }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+            animate={
+              prefersReducedMotion
+                ? undefined
+                : {
+                    x: ["-10%", "8%", "-10%"],
+                    y: ["-6%", "4%", "-6%"],
+                  }
+            }
+            transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div
-            className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-br from-secondary/25 to-accent/20 rounded-full blur-3xl"
-            animate={{
-              scale: [1.2, 1, 1.2],
-              x: [0, -40, 0],
-              y: [0, 40, 0],
+            className="absolute top-1/3 right-[-20%] w-[36rem] h-[36rem] rounded-full blur-[160px]"
+            style={{
+              background: "linear-gradient(160deg, rgba(192,132,252,0.18), rgba(244,114,182,0.15))",
+              opacity: 0.2,
             }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 2,
+            animate={
+              prefersReducedMotion
+                ? undefined
+                : {
+                    x: ["0%", "-8%", "0%"],
+                    y: ["4%", "-4%", "4%"],
+                  }
+            }
+            transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute bottom-[-25%] left-1/4 w-[32rem] h-[32rem] rounded-full blur-[150px]"
+            style={{
+              background: "linear-gradient(200deg, rgba(147,51,234,0.18), rgba(236,72,153,0.14))",
+              opacity: 0.18,
+            }}
+            animate={
+              prefersReducedMotion
+                ? undefined
+                : {
+                    x: ["-4%", "6%", "-4%"],
+                    y: ["0%", "-6%", "0%"],
+                  }
+            }
+            transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
+          />
+          {/* Grain texture */}
+          <div
+            className="absolute inset-0 opacity-[0.04] mix-blend-screen pointer-events-none"
+            style={{
+              backgroundImage:
+                "url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHZlY3Qgd2lkdGg9IjEyOCIgaGVpZ2h0PSIxMjgiIGZpbGw9IiMwMDAiLz48ZmlsdGVyIGlkPSJuIiB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9IjIuNSIgcmVzdWx0PSJ0Ii8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAxIDAiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgc3R5bGU9ImZpbHRlcjp1cmwoI24pOyIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iMC4xIi8+PC9zdmc+')",
             }}
           />
-          {/* Grid Pattern */}
-          <div className="absolute inset-0 opacity-5">
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage: `radial-gradient(circle at 1px 1px, rgb(147 51 234) 1px, transparent 0)`,
-                backgroundSize: "50px 50px",
-              }}
-            />
-          </div>
-        </div>
+        </motion.div>
 
         <div className="relative z-10 max-w-7xl mx-auto">
-          <div className="text-center">
+          <div className="relative text-center">
+            <motion.div
+              className="pointer-events-none absolute left-1/2 top-1/2 h-[24rem] w-[24rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
+              style={{
+                background: "radial-gradient(circle, rgba(192,132,252,0.35) 0%, rgba(13,11,20,0) 60%)",
+              }}
+              animate={
+                prefersReducedMotion
+                  ? undefined
+                  : {
+                      opacity: [0.28, 0.4, 0.28],
+                      scale: [0.98, 1.05, 0.98],
+                    }
+              }
+              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+            />
             {/* Floating Badge */}
             <motion.div
               className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary/20 to-secondary/20 border border-primary/30 backdrop-blur-sm mb-6 sm:mb-8"
@@ -222,31 +305,31 @@ const Home: React.FC = () => {
             <div className="mb-6 sm:mb-8">
               <motion.h1
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               >
                 <motion.span
                   className="block text-foreground mb-2"
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
                 >
                   {heroData.subtitle}
                 </motion.span>{" "}
                 <motion.span
                   className="block gradient-text-large relative"
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.6 }}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
                 >
                   {heroData.highlight}
                   {/* Underline effect - original style restored */}
                   <motion.div
                     className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-primary to-secondary rounded-full"
                     initial={{ width: 0 }}
-                    animate={{ width: "100%" }} 
-                    transition={{ duration: 1, delay: 1.2 }}
+                    animate={{ width: "100%" }}
+                    transition={{ duration: 0.8, delay: 0.9, ease: "easeOut" }}
                   />
                 </motion.span>
               </motion.h1>
@@ -255,9 +338,9 @@ const Home: React.FC = () => {
             {/* Enhanced Description */}
             <motion.p
               className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-8 sm:mb-10 max-w-4xl mx-auto leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
+              transition={{ duration: 0.6, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
             >
               {heroData.description}
             </motion.p>
@@ -265,18 +348,19 @@ const Home: React.FC = () => {
             {/* Dynamic CTA Buttons */}
             <motion.div
               className="flex flex-col sm:flex-row gap-4 justify-center mb-8 sm:mb-12"
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.0 }}
+              transition={{ duration: 0.6, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
             >
               <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: prefersReducedMotion ? 1 : 1.03 }}
+                whileTap={{ scale: prefersReducedMotion ? 1 : 0.97 }}
+                transition={{ duration: 0.2 }}
               >
                 {" "}
                 <Link
                   to="/contact"
-                  className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-full bg-gradient-to-r from-primary to-secondary text-primary-foreground overflow-hidden transition-all duration-300"
+                  className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-full bg-gradient-to-r from-primary to-secondary text-primary-foreground overflow-hidden transition-all duration-200 shadow-[0_0_0px_rgba(0,0,0,0)] hover:shadow-[0_0_32px_rgba(192,132,252,0.35)]"
                 >
                   {/* Animated background */}
                   <motion.div
@@ -287,21 +371,22 @@ const Home: React.FC = () => {
                   />
                   <Zap className="w-5 h-5 mr-2 relative z-10 group-hover:animate-pulse" />
                   <span className="relative z-10">{heroData.primaryCTA}</span>
-                  <ArrowRight className="ml-2 h-5 w-5 relative z-10 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 h-5 w-5 relative z-10 group-hover:translate-x-1 transition-transform duration-200" />
                 </Link>
               </motion.div>
 
               <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: prefersReducedMotion ? 1 : 1.03 }}
+                whileTap={{ scale: prefersReducedMotion ? 1 : 0.97 }}
+                transition={{ duration: 0.2, delay: 0.1 }}
               >
                 <Link
                   to="/portfolio"
-                  className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
+                  className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-200 shadow-[0_0_0px_rgba(0,0,0,0)] hover:shadow-[0_0_28px_rgba(168,85,247,0.25)]"
                 >
                   <Play className="w-5 h-5 mr-2" />
                   <span>{heroData.secondaryCTA}</span>
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-200" />
                 </Link>
               </motion.div>
             </motion.div>
@@ -310,31 +395,52 @@ const Home: React.FC = () => {
 
         {/* Floating Elements */}
         <motion.div
-          className="absolute top-1/4 right-12 w-20 h-20 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl hidden lg:block"
-          animate={{
-            y: [0, -20, 0],
-            rotate: [0, 10, 0],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+          className="absolute top-24 right-[12%] hidden lg:block h-24 w-24 rounded-3xl bg-gradient-to-br from-primary/25 to-secondary/25"
+          animate={
+            prefersReducedMotion
+              ? undefined
+              : {
+                  y: ["0%", "-12%", "0%"],
+                  x: ["0%", "4%", "0%"],
+                }
+          }
+          transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
+          style={{ opacity: 0.35 }}
         />
         <motion.div
-          className="absolute bottom-1/3 left-12 w-16 h-16 bg-gradient-to-br from-secondary/20 to-accent/20 rounded-full hidden lg:block"
-          animate={{
-            y: [0, 15, 0],
-            x: [0, 10, 0],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1,
-          }}
+          className="absolute bottom-[18%] left-[8%] hidden md:block h-20 w-20 rounded-full bg-gradient-to-br from-secondary/25 to-accent/25"
+          animate={
+            prefersReducedMotion
+              ? undefined
+              : {
+                  y: ["0%", "10%", "0%"],
+                  x: ["0%", "-6%", "0%"],
+                }
+          }
+          transition={{ duration: 26, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+          style={{ opacity: 0.28 }}
         />
-      </section>{" "}
+        <motion.div
+          className="absolute top-[12%] left-1/2 hidden xl:block h-16 w-16 rounded-full bg-gradient-to-br from-primary/20 to-accent/20"
+          animate={
+            prefersReducedMotion
+              ? undefined
+              : {
+                  y: ["0%", "-14%", "0%"],
+                  rotate: [0, 6, 0],
+                }
+          }
+          transition={{ duration: 28, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          style={{ opacity: 0.25 }}
+        />
+
+        {!prefersReducedMotion && (
+          <motion.div
+            className="pointer-events-none absolute top-0 left-0 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-primary/25 to-secondary/25 blur-3xl"
+            style={{ x: glowX, y: glowY, opacity: 0.25 }}
+          />
+        )}
+      </motion.section>{" "}
       {/* Stats Section - Modern Floating Design */}
       <section className="py-12 sm:py-16 md:py-20 lg:py-24 relative overflow-hidden">
         {/* Background Elements */}
