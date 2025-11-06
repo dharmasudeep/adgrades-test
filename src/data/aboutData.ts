@@ -130,10 +130,10 @@ export const team = [
   },
   {
     name: "J A Dharma Sudeep",
-    role: "",
-    image: "",
+    role: "Quality Assurance Engineer",
+    image: "/Sudeep.jpeg",
     bio: "",
-    linkedin: "#",
+    linkedin: "https://www.linkedin.com/in/dharma-sudeep-244aa0253",
   },
   {
     name: "Ujjwal Anuva",
