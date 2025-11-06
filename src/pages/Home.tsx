@@ -222,32 +222,33 @@ const Home: React.FC = () => {
             <div className="mb-6 sm:mb-8">
               <motion.h1
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
               >
                 <motion.span
                   className="block text-foreground mb-2"
-                  initial={{ opacity: 0, x: -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
                 >
                   {heroData.subtitle}
                 </motion.span>{" "}
                 <motion.span
-                  className="block gradient-text-large relative"
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6, delay: 0.6 }}
+                  className="block gradient-text-large"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, ease: "easeOut", delay: 0.6 }}
                 >
                   {heroData.highlight}
-                  {/* Underline effect - original style restored */}
-                  <motion.div
-                    className="absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-primary to-secondary rounded-full"
-                    initial={{ width: 0 }}
-                    animate={{ width: "100%" }} 
-                    transition={{ duration: 1, delay: 1.2 }}
-                  />
+                </motion.span>
+                <motion.span
+                  className="block text-lg sm:text-xl md:text-2xl text-muted-foreground/90 mt-3"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, ease: "easeOut", delay: 0.8 }}
+                >
+                  Where creativity meets measurable growth.
                 </motion.span>
               </motion.h1>
             </div>
