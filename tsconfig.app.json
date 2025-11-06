@@ -21,7 +21,8 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@splinetool/react-spline": ["./src/lib/spline-viewer.tsx"]
     }
   },
   "include": ["src"]

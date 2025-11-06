@@ -25,6 +25,7 @@ import {
 import AnimatedCounter from "../components/AnimatedCounter";
 import { heroData, servicesData, ctaData, testimonialData } from "../data/homeData";
 import { TestimonialsColumn } from "../components/ui/testimonials-columns-1";
+import Spline from "@splinetool/react-spline";
 
 const Home: React.FC = () => {
   // Service icons mapping
@@ -150,6 +151,7 @@ const Home: React.FC = () => {
       <section className="relative min-h-[85vh] sm:min-h-[90vh] lg:min-h-screen flex items-center justify-center px-3 sm:px-4 lg:px-8 overflow-hidden pt-4 sm:pt-8 lg:pt-12">
         {/* Animated Background Elements */}
         <div className="absolute inset-0">
+          <div className="absolute inset-0 hero-gradient-motion" />
           {/* Main gradient orbs */}
           <motion.div
             className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-primary/30 to-secondary/20 rounded-full blur-3xl"
@@ -888,6 +890,15 @@ const Home: React.FC = () => {
                 ></path>
               </svg>
             </div>
+          </div>
+        </div>
+        <div className="absolute bottom-[-6rem] right-[-4rem] sm:bottom-[-4rem] sm:right-[-2rem] md:bottom-[-2rem] md:right-4 lg:right-10 xl:right-16 hidden md:block">
+          <div className="relative w-[220px] h-[220px] sm:w-[260px] sm:h-[260px] md:w-[320px] md:h-[320px] lg:w-[360px] lg:h-[360px] xl:w-[420px] xl:h-[420px]">
+            <div className="pointer-events-none absolute inset-0 rounded-[3rem] bg-gradient-to-br from-primary/40 via-transparent to-secondary/40 blur-3xl" />
+            <Spline
+              className="w-full h-full"
+              scene="https://prod.spline.design/JQNigAFjWo3Azzsb/scene.splinecode"
+            />
           </div>
         </div>
       </section>

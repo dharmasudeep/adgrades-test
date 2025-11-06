@@ -11,6 +11,10 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      '@splinetool/react-spline': path.resolve(
+        __dirname,
+        './src/lib/spline-viewer.tsx',
+      ),
     },
   },
 });
