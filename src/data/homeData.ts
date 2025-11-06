@@ -82,7 +82,7 @@ export const servicesData = {
     },
     {
       icon: "📊",
-      title: "Performance Advertising",
+      title: "Performance Marketing",
       description:
         "Maximize your ROI with data-driven advertising campaigns across multiple platforms.",
       features: [
