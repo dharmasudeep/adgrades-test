@@ -23,10 +23,10 @@ export const milestones = [
     description: "Closed another 15 clients and expanded our service offerings",
   },
   {
-    year: "2024",
+    year: "2025",
     title: "Innovation Focus",
     description:
-      "Now scaling with a blend of offline and online marketing to bring revolutionary strategies for brands",
+      "Worked with multiple clients of different fields and giving relentless service across industry",
   },
 ];
 
