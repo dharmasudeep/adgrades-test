@@ -60,14 +60,14 @@ export const values = [
 export const team = [
   {
     name: "Chandan B Krishna",
-    role: "Founder, CEO, Marketing Strategist",
+    role: "Founder, CEO",
     image: "/chandan.jpg",
     bio: "Chandan is the visionary force behind AdGrades, leading the agency with a passion for creativity, strategy, and results. With a sharp eye for market trends and a deep understanding of brand building, Chandan specializes in crafting marketing solutions that not only boost visibility but also drive profitability.",
     linkedin: "https://www.linkedin.com/in/chandan-b-krishna-91562a279/",
   },
   {
     name: "Maneesh C Gowda",
-    role: "CTO",
+    role: "CMO",
     image: "/maneesh.jpg",
     bio: "Maneesh is the tech brain behind AdGrades. From writing smart code to building tools that power our marketing campaigns, he makes sure the technology we use is fast, reliable, and effective. He's the one who turns ideas into real, working digital tools that power our marketing strategies.",
     linkedin: "https://www.linkedin.com/in/maneesh-c-gowda-27942b258",
@@ -88,9 +88,9 @@ export const team = [
   },
   {
     name: "Chandu M",
-    role: "Content Lead",
+    role: "CTO",
     image: "/chandu.jpg",
-    bio: "Chandu is the voice behind the brand, the one who turns ideas into words that connect, inspire, and convert. As the Content Lead, she crafts powerful messaging across platforms that speaks directly to the audience and drives real action. She understands that great content isn't just about sounding good—it's about making an impact.",
+    bio: "The tech compass of AdGrades, Chandu turns ambitious ideas into rock-solid systems. She speaks fluent AI, data, and caffeine often all at once. When the team hits a wall, Chandu doesn’t just find the door she builds a smarter one that opens automatically.",
     linkedin: "https://www.linkedin.com/in/chandu-m-35b920295",
   },
   {
